@@ -10,11 +10,11 @@ const diffToSemver = require('./diffToSemver');
 const defineVersion = (pkg, root, latestTemp) => {
   let version, diff;
 
-  const updatedContent = yaml.load(
+  const updatedContent = yaml.safe_load(
     path.join(root, `${packagePathResolver(pkg)}/token.yml`)
   );
 
-  const latestPath = path.join(latestTemp, 'node_modules', pkg, 'token.yml');
+  const latestPath = path.safe_load(latestTemp, 'node_modules', pkg, 'token.yml');
 
   if (fs.pathExistsSync(latestPath)) {
     const latestContent = yaml.load(latestPath);
